@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Encabezado from "./components/navegacion/Encabezado";
 import Inicio from "./views/Inicio";
@@ -13,7 +13,7 @@ import "./App.css";
 
 const App = () => {
   return (
-    <Router>
+  <Router>
       <Encabezado />
 
       <main className="margen-superior-main">
@@ -54,6 +54,6 @@ const App = () => {
       </main>
     </Router>
   );
-};
+}; 
 
 export default App;
