@@ -15,6 +15,7 @@ const TablaCategorias = ({
   categorias,
   abrirModalEdicion,
   abrirModalEliminacion,
+  generarPDFCategoria,
 }) => {
   const [loading, setLoading] =
     useState(true);
@@ -106,6 +107,19 @@ const TablaCategorias = ({
                     >
                       <i className="bi bi-pencil"></i>
                     </Button>
+
+
+<Button
+  variant="outline-primary"
+  size="sm"
+  className="m-1"
+  onClick={() =>
+    generarPDFCategoria(categoria)
+  }
+>
+  <i className="bi bi-file-earmark-pdf"></i>
+</Button>
+
 
                     <Button
                       variant="outline-danger"

@@ -12,6 +12,8 @@ import Paginacion from "../components/ordenamiento/Paginacion";
 import ModalEdicionCategoria from "../components/categorias/ModalEdicionCategoria";
 import ModalEliminacionCategoria from "../components/categorias/ModalEliminacionCategoria";
 
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 
 const Categorias = () => {
 
@@ -196,6 +198,34 @@ const Categorias = () => {
             setCargando(false);
         }
     };
+    
+    
+    const generarPDFCategoria = (categoria) => {
+  const doc = new jsPDF();
+
+  // Título
+  doc.setFontSize(18);
+  doc.text("Reporte de Categoría", 14, 20);
+
+  // Línea decorativa
+  doc.line(14, 25, 195, 25);
+
+  // Tabla
+  autoTable(doc, {
+    startY: 35,
+    head: [["Campo", "Valor"]],
+    body: [
+      ["ID", categoria.id_categoria],
+      ["Nombre", categoria.nombre_categoria],
+      ["Descripción", categoria.descripcion_categoria],
+    ],
+  });
+
+  doc.save(`categoria_${categoria.id_categoria}.pdf`);
+};
+
+
+
 
     useEffect(() => {
         cargarCategorias();
@@ -330,7 +360,9 @@ const Categorias = () => {
                         manejarCambioBusqueda={manejarBusqueda}
                         placeholder="Buscar por nombre o descripción..."
                     />
+    
                 </Col>
+
             </Row>
 
             {/* Mensaje de no coincidencias solo cuando hay búsqueda y no hay resultados */}
@@ -346,12 +378,9 @@ const Categorias = () => {
             )}
 
             <Col xs={12} sm={12} md={12} className="d-lg-none">
-                <TablaCategorias
-                categorias={categoriasPaginadas}
-                    abrirModalEdicion={abrirModalEdicion}
-                    abrirModalEliminacion={abrirModalEliminacion}
-                />
+   
             </Col>
+
 
             {/* Spinner mientras se cargan las categorías */}
             {cargando && (
@@ -369,11 +398,12 @@ const Categorias = () => {
             {!cargando && categorias.length > 0 && (
                 <Row>
                     <Col lg={12} className="d-lg-block">
-                        <TablaCategorias
-                            categorias={categoriasPaginadas}
-                            abrirModalEdicion={abrirModalEdicion}
-                            abrirModalEliminacion={abrirModalEliminacion}
-                        />
+                       <TablaCategorias
+  categorias={categorias}
+  abrirModalEdicion={abrirModalEdicion}
+  abrirModalEliminacion={abrirModalEliminacion}
+  generarPDFCategoria={generarPDFCategoria}
+/>
                     </Col>
                 </Row>
             )}

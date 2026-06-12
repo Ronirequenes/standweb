@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { Card, Badge, Modal, Button } from "react-bootstrap";
 
-const TarjetaCatalogo = ({ producto, categoriaNombre }) => {
-  const [mostrarModal, setMostrarModal] = useState(false);
+const TarjetaCatalogo = ({
+  producto,
+  categoriaNombre,
+}) => {
+  const [mostrarModal, setMostrarModal] =
+    useState(false);
 
   const descripcion =
     producto.descripcion_producto || "";
@@ -73,25 +77,24 @@ const TarjetaCatalogo = ({ producto, categoriaNombre }) => {
           </Card.Title>
 
           {descripcion && (
-            <Card.Text className="text-muted small flex-grow-1">
-              {previsualizacionTexto}
+            <>
+              <Card.Text className="text-muted small flex-grow-1">
+                {previsualizacionTexto}
 
-              {tieneMasTexto && (
-                <span className="text-primary fw-medium ms-1">
-                  Leer más
-                </span>
-              )}
+                {tieneMasTexto && (
+                  <span className="text-primary fw-medium ms-1">
+                    Leer más
+                  </span>
+                )}
+              </Card.Text>
 
               <div className="mt-2">
-                <Badge
-                  bg="secondary"
-                  pill
-                >
+                <Badge bg="secondary" pill>
                   {categoriaNombre ||
                     "Sin categoría"}
                 </Badge>
               </div>
-            </Card.Text>
+            </>
           )}
 
           <hr />
@@ -100,8 +103,8 @@ const TarjetaCatalogo = ({ producto, categoriaNombre }) => {
             <h4 className="text-success fw-bold mb-0">
               C$
               {parseFloat(
-                producto.precio_venta
-              ).toFixed(1)}
+                producto.precio_venta || 0
+              ).toFixed(2)}
             </h4>
           </div>
         </Card.Body>
@@ -167,8 +170,8 @@ const TarjetaCatalogo = ({ producto, categoriaNombre }) => {
               <h3 className="text-success fw-bold mb-4">
                 C$
                 {parseFloat(
-                  producto.precio_venta
-                ).toFixed(1)}
+                  producto.precio_venta || 0
+                ).toFixed(2)}
               </h3>
 
               {descripcion && (
